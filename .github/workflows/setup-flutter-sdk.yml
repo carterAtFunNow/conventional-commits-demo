@@ -1,0 +1,12 @@
+name: setup flutter sdk
+run-name: prepare to setup flutter sdk
+on: [push]
+jobs:
+  setup-flutter-sdk:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.10'
+      - run: flutter --version
