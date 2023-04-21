@@ -5,10 +5,13 @@ jobs:
   setup-env:
     runs-on: macos-latest
     steps:
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '14.2.0'
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.3.10'
-      - run: flutter doctor
+#       - uses: maxim-lobanov/setup-xcode@v1
+#         with:
+#           xcode-version: '14.2.0'
+#       - uses: subosito/flutter-action@v2
+#         with:
+#           flutter-version: '3.3.10'
+#       - run: flutter doctor
+        - run: brew tap lokalise/cli-2
+        - run: brew install lokalise2
+        - run: lokalise2 --version
