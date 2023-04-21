@@ -1,5 +1,5 @@
-name: build iOS ipa
-run-name: prepare to build iOS ipa
+name: deploy iOS beta ipa
+run-name: prepare to deploy iOS beta ipa
 on: [workflow_dispatch]
 jobs:
   install-sdk-and-ide:
@@ -23,4 +23,13 @@ jobs:
       - run: brew install lokalise2
       - run: lokalise2 --version
       - run: brew install fastlane
-    
+  
+  build-iOS-ipa:
+    name: build iOS ipa
+    needs: [install-packages]
+    runs-on: macos-latest
+    env:
+      PRODUCT_FLAVOR: beta
+      BUILD_TYPE: debug
+    steps:
+      - run: echo "flavor is $PRODUCT_FLAVOR, build type is $BUILD_TYPE"
