@@ -23,6 +23,7 @@ jobs:
       - run: brew install lokalise2
       - run: lokalise2 --version
       - run: brew install fastlane
+      - run: flutter doctor
   
   build-iOS-ipa:
     name: build iOS ipa
