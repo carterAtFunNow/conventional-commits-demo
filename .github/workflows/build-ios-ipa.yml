@@ -2,35 +2,54 @@ name: deploy iOS beta ipa
 run-name: prepare to deploy iOS beta ipa
 on: [workflow_dispatch]
 jobs:
-  install-sdk-and-ide:
-    name: install SDK and IDE
+  build:
     runs-on: macos-latest
     steps:
-      - uses: maxim-lobanov/setup-xcode@v1
+      - name: install Xcode
+        uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '14.2.0'
-      - uses: subosito/flutter-action@v2
+      - name: install Flutter SDK
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.3.10'
+      - name: install lokalise2
+        run: brew tap lokalise/cli-2
+             brew install lokalise2
+             lokalise2 --version
+      - name: install fastlane
+        run: brew install fastlane
       - run: flutter doctor
 
-  install-packages:
-    name: install packages by Homebrew
-    needs: [install-sdk-and-ide]
-    runs-on: macos-latest
-    steps:
-      - run: brew tap lokalise/cli-2
-      - run: brew install lokalise2
-      - run: lokalise2 --version
-      - run: brew install fastlane
-      - run: flutter doctor
+#   install-sdk-and-ide:
+#     name: install SDK and IDE
+#     runs-on: macos-latest
+#     steps:
+#       - uses: maxim-lobanov/setup-xcode@v1
+#         with:
+#           xcode-version: '14.2.0'
+#       - uses: subosito/flutter-action@v2
+#         with:
+#           flutter-version: '3.3.10'
+#       - run: flutter doctor
+
+#   install-packages:
+#     name: install packages by Homebrew
+#     needs: [install-sdk-and-ide]
+#     runs-on: macos-latest
+#     steps:
+#       - run: brew tap lokalise/cli-2
+#       - run: brew install lokalise2
+#       - run: lokalise2 --version
+#       - run: brew install fastlane
+#       - run: flutter doctor
   
-  build-iOS-ipa:
-    name: build iOS ipa
-    needs: [install-packages]
-    runs-on: macos-latest
-    env:
-      PRODUCT_FLAVOR: beta
-      BUILD_TYPE: debug
-    steps:
-      - run: echo "flavor is $PRODUCT_FLAVOR, build type is $BUILD_TYPE"
+#   build-iOS-ipa:
+#     name: build iOS ipa
+#     needs: [install-packages]
+#     runs-on: macos-latest
+#     env:
+#       PRODUCT_FLAVOR: beta
+#       BUILD_TYPE: debug
+#     steps:
+#       - run: echo "flavor is $PRODUCT_FLAVOR, build type is $BUILD_TYPE"
