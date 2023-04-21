@@ -1,0 +1,14 @@
+name: build iOS ipa
+run-name: prepare to build iOS ipa
+on: [workflow_dispatch]
+jobs:
+  setup-env:
+    runs-on: macos-latest
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '14.2.0'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.10'
+      - run: flutter doctor
