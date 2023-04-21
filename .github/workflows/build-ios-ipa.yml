@@ -14,9 +14,10 @@ jobs:
         with:
           flutter-version: '3.3.10'
       - name: install lokalise2
-        run: brew tap lokalise/cli-2
-             brew install lokalise2
-             lokalise2 --version
+        run: |
+          brew tap lokalise/cli-2
+          brew install lokalise2
+          lokalise2 --version
       - name: install fastlane
         run: brew install fastlane
       - run: flutter doctor
