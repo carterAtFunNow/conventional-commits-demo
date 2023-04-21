@@ -2,16 +2,25 @@ name: build iOS ipa
 run-name: prepare to build iOS ipa
 on: [workflow_dispatch]
 jobs:
-  setup-env:
+  install-sdk-and-ide:
+    name: install SDK and IDE
     runs-on: macos-latest
     steps:
-#       - uses: maxim-lobanov/setup-xcode@v1
-#         with:
-#           xcode-version: '14.2.0'
-#       - uses: subosito/flutter-action@v2
-#         with:
-#           flutter-version: '3.3.10'
-#       - run: flutter doctor
-        - run: brew tap lokalise/cli-2
-        - run: brew install lokalise2
-        - run: lokalise2 --version
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '14.2.0'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.10'
+      - run: flutter doctor
+
+  install-packages:
+    name: install packages by Homebrew
+    needs: [install-sdk-and-ide]
+    runs-on: macos-latest
+    steps:
+      - run: brew tap lokalise/cli-2
+      - run: brew install lokalise2
+      - run: lokalise2 --version
+      - run: brew install fastlane
+    
