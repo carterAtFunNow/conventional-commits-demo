@@ -1,6 +1,6 @@
 name: setup flutter sdk
 run-name: prepare to setup flutter sdk
-on: [push]
+on: [workflow_dispatch]
 jobs:
   setup-flutter-sdk:
     runs-on: macos-latest
